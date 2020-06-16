@@ -116,6 +116,7 @@ const MyCarousel = () => {
                 offsetRadius={state.offsetRadius}
                 showNavigation={state.showNavigation}
                 animationConfig={state.config} />
+            <Line></Line>
             <H1>{zodiac}</H1>
         </Container>
     );
@@ -129,6 +130,13 @@ height: 300px;
   justify-content: center;
   align-items: center;
   flex-direction: column;
+`
+
+const Line = styled.div`
+height: 2px;
+width: 90%;
+background:#f6f7f7;
+margin-bottom: 20px
 `
 
 

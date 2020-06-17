@@ -16,6 +16,7 @@ import zwillinge from '../assets/SVG/zwillinge.svg'
 import widder from '../assets/SVG/widder.svg'
 import steinbock from '../assets/SVG/steinbock.svg'
 import { H1, H2, P } from "../components/base/headings"
+import { ReactComponent as Forward } from "../assets/icons/icons8-play.svg"
 import Hammer from 'hammerjs'
 
 
@@ -82,10 +83,26 @@ const MyCarousel = () => {
     })
 
     const getCurrentZodiac = (currentSlide) => {
+        console.log(currentSlide)
         return slides.find((slide, index) => {
             return index === currentSlide
+
         })
 
+    }
+
+    const slideForward = () => {
+        setState((state) => ({
+            ...state,
+            goToSlide: Math.abs((state.goToSlide + 1) % 12)
+        }))
+    }
+
+    const slideBackward = () => {
+        setState((state) => ({
+            ...state,
+            goToSlide: Math.abs((state.goToSlide - 1) % 12)
+        }))
     }
 
     const carouselRef = useRef()
@@ -93,18 +110,8 @@ const MyCarousel = () => {
 
     useLayoutEffect(() => {
         const hammertime = new Hammer(carouselRef.current)
-        hammertime.on('swipeleft', function () {
-            setState((state) => ({
-                ...state,
-                goToSlide: state.goToSlide + 1
-            }))
-        })
-        hammertime.on('swiperight', function () {
-            setState((state) => ({
-                ...state,
-                goToSlide: state.goToSlide - 1
-            }))
-        })
+        hammertime.on('swipeleft', slideForward)
+        hammertime.on('swiperight', slideBackward)
         setState({ ...state, hammertime })
     }, [])
 
@@ -116,6 +123,14 @@ const MyCarousel = () => {
                 offsetRadius={state.offsetRadius}
                 showNavigation={state.showNavigation}
                 animationConfig={state.config} />
+            <ButtonWrapper>
+                <RoundButton onClick={slideBackward}>
+                    <BackwardButton></BackwardButton>
+                </RoundButton>
+                <RoundButton onClick={slideForward}>
+                    <Forward></Forward>
+                </RoundButton>
+            </ButtonWrapper>
             <Line></Line>
             <H1>{zodiac}</H1>
         </Container>
@@ -126,14 +141,39 @@ export default MyCarousel
 
 const Container = styled.div`
 height: 300px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
+display: flex;
+justify-content: center;
+align-items: center;
+flex-direction: column;
+`
+
+const ButtonWrapper = styled.div`
+position:relative;
+display: flex;
+width: 100%;
+justify-content: space-between;
+margin-bottom: 10px;
+`
+const RoundButton = styled.div`
+width: 50px;
+height: 50px;
+border-radius: 50px;
+background: #ffffff;
+-webkit-box-shadow: 0 2px 4px 0 rgba(14,30,37,.12);
+box-shadow: 0 2px 4px 0 rgba(14,30,37,.12);
+padding: 5px;
+transition: all 0.6 ease-in-out;
+
+    &:active {
+        transform: scale(1.1)
+    }
+`
+const BackwardButton = styled(Forward)`
+    transform: rotate(180deg)
 `
 
 const Line = styled.div`
-height: 2px;
+height: 2px; 
 width: 90%;
 background:#f6f7f7;
 margin-bottom: 20px

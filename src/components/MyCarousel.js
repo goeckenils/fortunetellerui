@@ -152,7 +152,7 @@ position:relative;
 display: flex;
 width: 100%;
 justify-content: space-between;
-margin-bottom: 10px;
+margin-bottom: 20px;
 `
 const RoundButton = styled.div`
 width: 50px;
@@ -176,7 +176,7 @@ const Line = styled.div`
 height: 2px; 
 width: 90%;
 background:#f6f7f7;
-margin-bottom: 20px
+margin-bottom: 20px;
 `
 
 

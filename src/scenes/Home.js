@@ -27,6 +27,11 @@ const Home = () => {
                     <MyCarousel></MyCarousel>
                 </Card>
             </Wrapper>
+            <Wrapper>
+                <Card>
+                    <P></P>
+                </Card>
+            </Wrapper>
         </Container>
     )
 

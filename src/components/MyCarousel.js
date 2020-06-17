@@ -15,7 +15,7 @@ import wasserman from '../assets/SVG/wasserman.svg'
 import zwillinge from '../assets/SVG/zwillinge.svg'
 import widder from '../assets/SVG/widder.svg'
 import steinbock from '../assets/SVG/steinbock.svg'
-import { H1, H2, P } from "../components/base/headings"
+import { H1 } from "../components/base/headings"
 import { ReactComponent as Forward } from "../assets/icons/icons8-play.svg"
 import Hammer from 'hammerjs'
 
@@ -40,7 +40,7 @@ const MyCarousel = () => {
             content: <img src={widder} alt="4" />
         },
         {
-            key: "stier",
+            key: "Stier",
             content: <img src={stier} alt="5" />
         },
         {
@@ -94,14 +94,17 @@ const MyCarousel = () => {
     const slideForward = () => {
         setState((state) => ({
             ...state,
-            goToSlide: Math.abs((state.goToSlide + 1) % 12)
+            goToSlide: Math.abs(state.goToSlide + 1) % 12
         }))
     }
 
     const slideBackward = () => {
+        const step = state.goToSlide - 1
+        const nextStep = step < 0 ? 12 + step : step
+
         setState((state) => ({
             ...state,
-            goToSlide: Math.abs((state.goToSlide - 1) % 12)
+            goToSlide: nextStep
         }))
     }
 
@@ -162,14 +165,14 @@ background: #ffffff;
 -webkit-box-shadow: 0 2px 4px 0 rgba(14,30,37,.12);
 box-shadow: 0 2px 4px 0 rgba(14,30,37,.12);
 padding: 5px;
-transition: all 0.6 ease-in-out;
+transition: all 0.2 linear;
 
     &:active {
-        transform: scale(1.1)
+        transform: scale(0.8)
     }
 `
 const BackwardButton = styled(Forward)`
-    transform: rotate(180deg)
+    transform: rotate(180deg);
 `
 
 const Line = styled.div`
